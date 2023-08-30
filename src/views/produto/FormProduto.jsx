@@ -12,7 +12,7 @@ export default function FormCliente () {
 
                 <Container textAlign='justified' >
 
-                    <h2> <span style={{color: 'darkgray'}}> Cliente &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
+                    <h2> <span style={{color: 'darkgray'}}> Produto &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
 
                     <Divider />
 
@@ -25,14 +25,14 @@ export default function FormCliente () {
                                 <Form.Input
                                     required
                                     fluid
-                                    label='Nome'
+                                    label='Titulo'
                                     maxLength="100"
                                 />
 
                                 <Form.Input
                                     required
                                     fluid
-                                    label='CPF'>
+                                    label='Código do Produto'>
                                     <InputMask
                                         required
                                         mask="999.999.999-99"
@@ -45,7 +45,18 @@ export default function FormCliente () {
 
                                 <Form.Input
                                     fluid
-                                    label='Fone Celular'
+                                    required
+                                    label='Descrição'
+                                    maxLength="100"
+                                    />
+                               
+                                
+                            </Form.Group>
+
+                            <Form.Group>
+                            <Form.Input
+                                    fluid
+                                    label='Valor Unitario'
                                     width={6}>
                                     <InputMask 
                                         mask="(99) 9999.9999"
@@ -54,16 +65,7 @@ export default function FormCliente () {
 
                                 <Form.Input
                                     fluid
-                                    label='Fone Fixo'
-                                    width={6}>
-                                    <InputMask 
-                                        mask="(99) 9999.9999"
-                                    /> 
-                                </Form.Input>
-
-                                <Form.Input
-                                    fluid
-                                    label='Data Nascimento'
+                                    label='Tempo de Entrega Minino em Minutos'
                                     width={6}
                                 >
                                     <InputMask 
@@ -72,6 +74,12 @@ export default function FormCliente () {
                                         placeholder="Ex: 20/03/1985"
                                     /> 
                                 </Form.Input>
+                                <Form.Input
+                                    fluid
+                                    required
+                                    label='Tempo de Entrega Minima em Minutos'
+                                    maxLength="100"
+                                    />
 
                             </Form.Group>
                         

@@ -4,11 +4,14 @@ import 'semantic-ui-css/semantic.min.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Home from './views/home/Home';
+import FormCliente from './views/cliente/FormCliente';
+import FormProduto from './views/produto/FormProduto'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <FormProduto/>
   </React.StrictMode>
 );
 
