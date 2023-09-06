@@ -1,6 +1,7 @@
 import React from "react";
-import InputMask from 'react-input-mask';
+
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
+import MenuSistema from "../../MenuSistema";
 
 
 export default function FormProduto() {
@@ -8,6 +9,8 @@ export default function FormProduto() {
     return (
 
         <div>
+            <MenuSistema />
+
 
             <div style={{ marginTop: '3%' }}>
 
