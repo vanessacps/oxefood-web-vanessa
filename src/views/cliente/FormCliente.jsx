@@ -1,18 +1,36 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import InputMask from 'react-input-mask';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 import MenuSistema from "../../MenuSistema";
 
 
 export default function FormCliente () {
 
+    const [idCliente, setIdCliente] = useState();
     const [nome, setNome] = useState();
     const [cpf, setCpf] = useState();
     const [dataNascimento, setDataNascimento] = useState();
     const [foneCelular, setFoneCelular] = useState();
     const [foneFixo, setFoneFixo] = useState();
+    const { state } = useLocation();
+
+
+    useEffect(() => {
+        if (state != null && state.id != null) {
+            axios.get("http://localhost:8082/api/cliente/" + state.id)
+        .then((response) => {
+                                setIdCliente(response.data.id)
+                                setNome(response.data.nome)
+                                setCpf(response.data.cpf)
+                                setDataNascimento(formatarData(response.data.dataNascimento))
+                                setFoneCelular(response.data.foneCelular)
+                                setFoneFixo(response.data.foneFixo)
+                    })
+                }
+        }, [state])
+
 
     function salvar() {
 
@@ -23,16 +41,31 @@ export default function FormCliente () {
 		     foneCelular: foneCelular,
 		     foneFixo: foneFixo
 		}
-        console.log (clienteRequest)
-		axios.post("http://localhost:8082/api/cliente", clienteRequest)
-		.then((response) => {
-		     console.log('Cliente cadastrado com sucesso.')
-		})
-		.catch((error) => {
-		     console.log('Erro ao incluir o um cliente.')
-		})
+        if (idCliente != null) { //Alteração:
+            axios.put("http://localhost:8082/api/cliente/" + idCliente, clienteRequest)
+            .then((response) => { console.log('Cliente alterado com sucesso.') })
+            .catch((error) => { console.log('Erro ao alter um cliente.') })
+        } else { //Cadastro:
+            axios.post("http://localhost:8082/api/cliente", clienteRequest)
+            .then((response) => { console.log('Cliente cadastrado com sucesso.') })
+            .catch((error) => { console.log('Erro ao incluir o cliente.') })
+        }
+ 
 	}
 
+    function formatarData(dataParam) {
+
+        if (dataParam === null || dataParam === '' || dataParam === undefined) {
+             return ''
+        }
+    
+        let arrayData = dataParam.split('-');
+    
+        return arrayData[2] + '/' + arrayData[1] + '/' + arrayData[0]
+    
+      
+    
+    }
 
     return (
 
