@@ -1,7 +1,7 @@
 import axios from "axios";
-import React, { useState , useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import InputMask from 'react-input-mask';
-import { Link , useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 
 import MenuSistema from "../../MenuSistema";
@@ -42,7 +42,7 @@ export default function FormEntregador () {
                            setNome(response.data.nome)
                            setRg(response.data.rg)
                            setCpf(response.data.cpf)
-                           setDataNascimento(response.data.dataNascimento)
+                           setDataNascimento(formatarData(response.data.dataNascimento))
                            setFoneCelular(response.data.foneCelular)
                            setFoneFixo(response.data.foneFixo)
                            setQtdEntregasRealizadas(response.data.qtdEntregasRealizadas)
@@ -54,6 +54,20 @@ export default function FormEntregador () {
             })
         }
 }, [state])
+
+function formatarData(dataParam) {
+
+    if (dataParam === null || dataParam === '' || dataParam === undefined) {
+         return ''
+    }
+
+    let arrayData = dataParam.split('-');
+
+    return arrayData[2] + '/' + arrayData[1] + '/' + arrayData[0]
+
+  
+
+}
 
 
     function salvar() {
@@ -97,12 +111,16 @@ export default function FormEntregador () {
     
                 <div style={{ marginTop: '3%' }}>
     
-                    <Container textAlign="justified">
-    
-                        <h2><span style={{ color: 'darkgrey' }}>Entregador <Icon name='angle double right' size='small' /></span> Cadastro</h2>
-    
-                        <Divider />
-    
+                    
+                    <Container textAlign='justified'>
+                { idEntregador === undefined &&
+                        <h2> <span style={{color: 'darkgray'}}> Entregador &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro</h2>
+                    }
+                    { idEntregador !== undefined &&
+                        <h2> <span style={{color: 'darkgray'}}> Entregador &nbsp;<Icon name='angle double right' size="small" /> </span> Alteração</h2>
+                    }
+
+                    <Divider />
                         <div style={{ marginTop: '4%' }}>
     
                             <Form>

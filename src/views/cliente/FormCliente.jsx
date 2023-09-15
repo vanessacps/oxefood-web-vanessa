@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState , useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import InputMask from 'react-input-mask';
 import { Link, useLocation } from "react-router-dom";
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
@@ -76,12 +76,15 @@ export default function FormCliente () {
 
             <div style={{marginTop: '3%'}}>
 
-                <Container textAlign='justified' >
-
-                    <h2> <span style={{color: 'darkgray'}}> Cliente &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
+            <Container textAlign='justified'>
+                { idCliente === undefined &&
+                        <h2> <span style={{color: 'darkgray'}}>Cliente &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro</h2>
+                    }
+                    { idCliente !== undefined &&
+                        <h2> <span style={{color: 'darkgray'}}> Cliente &nbsp;<Icon name='angle double right' size="small" /> </span> Alteração</h2>
+                    }
 
                     <Divider />
-
                     <div style={{marginTop: '4%'}}>
 
                         <Form>
