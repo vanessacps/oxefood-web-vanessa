@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, Container, Divider, Icon, Table } from 'semantic-ui-react';
+import { Button, Container, Divider, Icon, Table , Modal, Header } from 'semantic-ui-react';
 import MenuSistema from '../../MenuSistema';
 
 export default function ListProduto () {
 
    const [lista, setLista] = useState([]);
+   const [openModal , setOpenModal] = useState(false);
+   const [idRemover , setIdRemover] = useState();
 
    useEffect(() => {
        carregarLista();
@@ -19,19 +21,29 @@ export default function ListProduto () {
            setLista(response.data)
        })
    }
-   function formatarData(dataParam) {
-
-    if (dataParam === null || dataParam === '' || dataParam === undefined) {
-         return ''
-    }
-
-    let arrayData = dataParam.split('-');
-
-    return arrayData[2] + '-' + arrayData[1] + '-' + arrayData[0]
-
-  
-
+   function confirmaRemover(id) {
+    setOpenModal(true)
+    setIdRemover(id)
 }
+
+async function remover() {
+
+    await axios.delete('http://localhost:8082/api/produto/' + idRemover)
+    .then((response) => {
+
+        console.log('produto removido com sucesso.')
+
+        axios.get("http://localhost:8082/api/produto")
+        .then((response) => {
+            setLista(response.data)
+        })
+    })
+    .catch((error) => {
+        console.log('Erro ao remover um produto.')
+    })
+    setOpenModal(false)
+}
+  
 return(
     <div>
         <MenuSistema />

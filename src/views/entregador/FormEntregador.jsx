@@ -50,6 +50,7 @@ export default function FormEntregador () {
                            setEnderecoNumero(response.data.enderecoNumero)
                            setEnderecoBairro(response.data.enderecoBairro)
                            setEnderecoCidade(response.data.enderecoCidade)
+                           setEnderecoUf(response.data.enderecoUf)
                            setEnderecoComplemento(response.data.enderecoComplemento)
             })
         }
@@ -285,7 +286,9 @@ function formatarData(dataParam) {
                                     options={options}
                                     placeholder="Selecione"
                                     value={enderecoUf}
-                                    onChange={e => setEnderecoUf(e.target.value)}
+                                    onChange={(e,{value }) => {
+                                        setEnderecoUf(value)
+                                    }}
                                 />
     
                                 <Form.Input

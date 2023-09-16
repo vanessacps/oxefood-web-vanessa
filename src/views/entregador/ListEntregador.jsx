@@ -71,6 +71,7 @@ return(
                               <Table.HeaderCell>Numero</Table.HeaderCell>
                               <Table.HeaderCell>Bairro</Table.HeaderCell>
                               <Table.HeaderCell>Cidade</Table.HeaderCell>
+                              <Table.HeaderCell>UF</Table.HeaderCell>
                               <Table.HeaderCell>Complemento</Table.HeaderCell>
                               <Table.HeaderCell textAlign='center'>Ações</Table.HeaderCell>
                           </Table.Row>
@@ -93,6 +94,7 @@ return(
                                   <Table.Cell>{entregador.enderecoNumero}</Table.Cell>
                                   <Table.Cell>{entregador.enderecoBairro}</Table.Cell>
                                   <Table.Cell>{entregador.enderecoCidade}</Table.Cell>
+                                  <Table.Cell>{entregador.enderecoUf}</Table.Cell>
                                   <Table.Cell>{entregador.enderecoComplemento}</Table.Cell>
 
                                   <Table.Cell textAlign='center'>
