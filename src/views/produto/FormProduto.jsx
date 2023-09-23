@@ -11,6 +11,7 @@ export default function FormProduto() {
 
 
     const {state} = useLocation();
+
     const [idProduto , setIdProduto] = useState();
     const [titulo, setTitulo] = useState();
     const [codigo, setCodigo] = useState();
@@ -18,6 +19,8 @@ export default function FormProduto() {
     const [valorUnitario, setValorUnitario] = useState();
     const [tempoEntregaMinino, setTempoEntregaMinino] = useState();
     const [tempoEntregaMaximo, setTempoEntregaMaximo] = useState();
+    const [idCategoria, setIdCategoria] = useState();
+    const [listaCategoria, setListaCategoria] = useState([]);
 
 
     useEffect(() => {
@@ -31,13 +34,23 @@ export default function FormProduto() {
             setValorUnitario(response.data.valorUnitario)
             setTempoEntregaMinino(response.data.tempoEntregaMinino)
             setTempoEntregaMaximo(response.data.tempoEntregaMaximo)
+            setIdCategoria(response.data.categoria.id)
+
             })
         }
+
+        axios.get("http://localhost:8082/api/categoriaproduto")
+       .then((response) => {
+           const dropDownCategorias = response.data.map(c => ({ text: c.descricao, value: c.id }));
+           setListaCategoria(dropDownCategorias);
+       })
+
 }, [state])
 
 function salvar() {
 
     let produtoRequest = {
+        idCategoria: idCategoria,
         titulo: titulo,
         codigo: codigo,
         descricao: descricao,
@@ -102,6 +115,22 @@ function salvar() {
                                 />
 
 
+
+                            </Form.Group>
+
+                            <Form.Group>
+                            <Form.Select
+                                required
+                                fluid
+                                tabIndex='3'
+                                placeholder='Selecione'
+                                label='Categoria'
+                                options={listaCategoria}
+                                value={idCategoria}
+                                onChange={(e,{value}) => {
+                                    setIdCategoria(value)
+                                }}
+                            />
 
                             </Form.Group>
 
